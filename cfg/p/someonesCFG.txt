@@ -1,0 +1,100 @@
++steamdatagram_client_force_relay_cluster hkg （强制选用港服的启动项，但貌似没用）
+
+bind "ESCAPE" "cancelselect"
+bind "`" "toggleconsole"
+
+bind "TAB" "+showscores"
+bind "SPACE" "+jump"
+bind "," "buyammo1"
+bind "." "buyammo2"
+bind "0" "slot10"
+bind "1" "slot1"
+bind "2" "slot2"
+bind "3" "slot3"
+bind "4" "slot4"
+bind "5" "slot5"
+bind "6" "slot6"
+bind "7" "slot7"
+bind "8" "slot8"
+bind "9" "slot9"
+bind "a" "+moveleft"
+bind "b" "buymenu"
+bind "c" "radio3"
+bind "d" "+moveright"
+bind "e" "+use"
+bind "f" "+lookatweapon"
+bind "g" "drop"
+bind "i" "show_loadout_toggle"
+bind "k" "+voicerecord"
+bind "m" "teammenu"
+bind "q" "lastinv"
+bind "r" "+reload"
+bind "s" "+back"
+bind "u" "messagemode2"
+bind "w" "+forward"
+bind "x" "radio2"
+bind "y" "messagemode"
+bind "z" "radio1"
+bind "CTRL" "+duck"
+bind "SHIFT" "+speed; r_cleardecals"
+bind "F3" "autobuy"
+bind "F4" "rebuy"
+bind "F5" "jpeg"
+bind "F6" "save quick"
+bind "F7" "load quick"
+bind "F10" "quit prompt"
+bind "MWHEELDOWN" "+jump"
+bind "MWHEELUP" "+jump"
+bind "MOUSE1" "+attack"
+bind "MOUSE2" "+attack2"
+bind "PAUSE" "pause"
+bind "DEL" "mute"
+bind "t" "+spray_menu"
+bind "MOUSE4" "+voicerecord"
+bind "MOUSE5" "+voicerecord"
+
+cl_radar_always_centered 0
+cl_radar_scale 0.6
+snd_headphone_pan_exponent 2
+
+net_graph 1
+net_graphpos 1
+
+cl_showpos 0
+
+sv_lan 1
+
+cl_crosshairthickness 1
+cl_crosshairgap -1
+cl_crosshair_drawoutline 0
+cl_crosshair_outlinethickness 1
+cl_crosshairdot 1
+cl_crosshair_t 0
+cl_crosshaircolor 5
+cl_crosshaircolor_r 255
+cl_crosshaircolor_g 0
+cl_crosshaircolor_b 0
+cl_crosshairalpha 355
+
+cl_righthand "1"
+
+cl_viewmodel_shift_left_amt "1.5"
+cl_viewmodel_shift_right_amt "0.75"
+viewmodel_fov "68"
+viewmodel_offset_x "2.500000"
+viewmodel_offset_y "0"
+viewmodel_offset_z "-1.500000"
+viewmodel_presetpos "0"
+viewmodel_recoil "0"
+cl_bob_lower_amt "21"
+cl_bobamt_lat "0.4"
+cl_bobamt_vert "0.25"
+cl_bobcycle "0.98"
+
+r_drawtracers_firstperson 0
+viewmodel_recoil 0
+
+
+【启动项】
+
+-noforcemaccel -noforcemparms -freq 60 -novid -threads 4 -high -noipx -nojoy -preload -tickrate 128 -processheap -32bbp +exec na1ve.cfg +cl_interp 0 +rate 128000 -dxlevel 81 -heapsize -nosync -tcp

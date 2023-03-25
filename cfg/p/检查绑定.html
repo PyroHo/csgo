@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+  <meta charset="utf-8">
+  <title>PyroHo</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    *, *:before, *:after {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    html {
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", "Microsoft Yahei", sans-serif;
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+    }
+html {
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  
+  
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+  margin: 0;
+}
+
+#alias, #bind {
+  width: 50%;
+}
+
+#notFound {
+  width: 100%;
+}
+
+  </style>
+</head>
+<body>
+  <textarea name="alias" id="alias" placeholder="alias"></textarea>
+  <textarea name="bind" id="bind" placeholder="bind"></textarea>
+  <textarea name="notFound" id="notFound" placeholder="notFound" ></textarea>
+
+  <script>
+    
+    function domain() {
+      var alias = [], bind = [], notFound = new Set();
+
+      document.querySelector('#alias').value.replace(/alias +(\S+)/g, (match, $1) => {
+        alias.push($1);
+      });
+
+      document.querySelector('#bind').value.replace(/bind +\S+ +(".*"|[^;]+)/g, (match, $1) => {
+        bind.push(...$1.replace(/"/g, '').split(/ ?; ?/g));
+      });
+
+      bind.forEach(b => {
+        if(!alias.includes(b)) { notFound.add(b); }
+      });
+      
+      document.querySelector('#notFound').value = JSON.stringify(notFound, null, 2);
+      console.log(notFound)
+    }
+    document.querySelector('#notFound').addEventListener('click', domain, false);
+    
+    // function loadFile(path, success, error) {
+    //   success = success || console.log;
+    //   error = error || console.log;
+      
+    //   var xhr = new XMLHttpRequest();
+    //   xhr.onreadystatechange = function () {
+    //     if (xhr.readyState !== XMLHttpRequest.DONE) {
+    //       return;
+    //     }
+    //     if (xhr.status === 200) {
+    //       success(xhr.responseText);
+    //     } else {
+    //       error(xhr);
+    //     }
+    //   };
+    //   xhr.open("GET", path, true);
+    //   xhr.send();
+    // }
+
+    // function processAlias(text) {
+    //   aliasText = text;
+    //   if(bindText.length > 0) domain();
+    // }
+    
+    // function processBind(text) {
+    //   bindText = text;
+    //   if(aliasText.length > 0) domain();
+    // }
+    
+    // loadFile('./p_aa_alias.cfg', processAlias, console.error);
+    // loadFile('./p_aa_bind.cfg', processBind, console.error);
+    
+  </script>
+</body>
+</html>

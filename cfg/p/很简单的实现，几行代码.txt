@@ -1,0 +1,115 @@
+很简单的实现，几行代码
+首先找到V模缓存模型(不然Engine Error)
+
+
+// 缓存模型 防止炸游戏
+function CacheModel() {
+  local viewmodel = null; 
+  while(viewmodel = Entities.FindByClassname(viewmodel, "predicted_viewmodel")) {
+    viewmodel.PrecacheModel("models/weapons/v_knife_karam.mdl");
+  }
+  // 搜索所有的 "predicted_viewmodel" 并且调用 PrecacheModel 方法进行缓存模型
+}
+
+// 替换
+function butterfly() {
+  local viewmodel = null;
+  while(viewmodel = Entities.FindByClassname(viewmodel, "predicted_viewmodel")) {
+    viewmodel.SetModel("models/weapons/v_knife_butterfly.mdl");
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+这次我要分享的经验是使用VScript生成实体I/O事件。I/O就是输入输出的意思，
+也就是Hammer中的Output和Input。在Source引擎中，几乎所有的实体都可以通过I/O事件与其他的实体建立联系，从而实现某些功能。
+
+
+VScript中与实体I/O有关联的函数主要有三个，
+分别是：EntFire、DoEntFire和EntFireByHandle。
+在使用VScript之前，需要知道如何在地图中添加脚本，这一方法我已经在上一篇经验分享中介绍了，不明白的可以去看看。
+
+
+先从EntFire讲起：
+EntFire(
+  string target,
+  string action,
+  string value,
+  float delay = 0.0,
+  handle activator = null) 
+
+EntFire的功能是生成一个实体I/O事件。它的用法非常简单但是也很有局限性。
+
+比方说，在Hammer中，我的logic_script实体的targetname是"@turret"，它关联着一个脚本文件，脚本内容如下：
+
+function OnTriggerTouched() {
+  activator.SetHealth(200);
+}
+
+function OnTimer() {
+  print("Hello World!");
+}
+
+地图中存在一个trigger_multiple实体，玩家一接触就会输出OnStartTouch事件，
+然后向脚本实体@turret输入RunScriptCode事件，参数为"OnTriggerTouched()"。
+
+如果我想在函数OnTriggerTouched()被调用的5秒后调用OnTimer()函数的话，由于VScript中没有计时器函数，这时就只能靠EntFire来大显身手了。代码如下：
+
+function OnTriggerTouched() {
+  activator.SetHealth(200);
+  EntFire("@turret","RunScriptCode","OnTimer()",5.0);
+}
+
+这样便生成了一个延迟为5秒的I/O事件，也就是OnTriggerTouched()被调用5秒后，脚本自身向脚本实体"@turret"输入"RunScriptCode"事件，参数为"OnTimer()"，延迟是5.0秒。
+但是，EntFire有一个缺陷，就是当某种实体没有targetname的时候，便无法向其传递信息。
+因此，这时候就需要用到EntFireByHandle了：
+EntFireByHandle(handle target, string action, string 'value, float delay, handle activator, handle caller)
+与前者不同的是，这个函数的target的类型变成了handle，而且多了一个caller。handle（句柄）是一种特殊的变量，其功能有一点像指针，
+可以始终标识某一特定对象，句柄本身没有意义，但是可以通过句柄对其标识的对象进行操作。这里的activator和caller即激活实体和调用实体的句柄，
+可以为空值但是不可省略。同等功能的实现方法如下：
+
+function OnTriggerTouched() {
+  activator.SetHealth(200);
+  local turret = Entities.FindByName(null,"@turret")
+
+  EntFireByHandle(turret,"RunScriptCode","OnTimer()",5.0,turret,turret);
+}
+
+那么你可能要问了，有这两个函数不就够了吗，还要DoEntFire干什么？其实呢，DoEntFire是兼具前两者特点的函数。
+DoEntFire(string target, string action, string value, float delay, handle activator, handle caller)
+其target的类型是字符串，但是又具有activator和caller的句柄，因此它的功能是，
+在目标实体没有targetname的时候，允许通过将target值设为"!activator"或者"!self"的方式传递数据给目标实体。
+（值得一提的是，VScript中有一些已经预声明的handle，比如activator和self。前者是向脚本实体传递Input事件的实体的激活者，
+后者是脚本实体本身，这是题外话。）比方说，我的脚本实体本身没有targetname，我又想创建一个计时器，就必须用到DoEntFire了：
+function OnTriggerTouched()
+{
+activator.SetHealth(200);
+EntFire("@turret","AddOutput","targetname "); //清除logic_script的targetname
+
+DoEntFire("!self","RunScriptCode","OnTimer()",5.0,self,self);
+}
+注意，上面这段DoEntFire的string target为"!self"时代表的是handle caller所指的对象，为"!activator"时代表handle activator所指的对象。
+
+
+除此之外，VScript与输入输出有关的函数还有ConnectOutput和DisconnectOutput。前者用于建立实体输出与脚本函数之间的关系，即Source引擎中正在进行某种特定输出时，就调用指定的脚本函数。
+ConnectOutput(string output, string function)
+用法举例：游戏中的旋转门被打开时，调用OnTriggerTouched()函数：
+
+
+self.ConnectOutput("OnOpen", "OnTriggerTouched");
+
+
+DisconnectOutput的用法相同，功能相反，不再介绍。

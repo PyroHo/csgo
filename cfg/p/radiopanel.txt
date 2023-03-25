@@ -1,0 +1,162 @@
+"RadioPanel.txt"
+{
+
+//"SFUI_StandardRadio"
+//"SFUI_GroupRadio"	
+//"SFUI_ReportRadio"	
+	"Groups"
+	{
+		"common"
+		{
+			"hotkey"	"0"
+			"title"	"#SFUI_CommonRadio"
+			"timeout"	"3"
+
+			"Commands"
+			{
+				"getout"
+				{
+					"hotkey"	"1"
+					"label"	"#SFUI_Radio_Shes_Gonna_Blow"
+					"cmd"	"getout"
+				}
+				
+				"takingfire"
+				{
+					"hotkey"	"2"
+					"label"	"#SFUI_Radio_Need_Assist"
+					"cmd"	"takingfire"
+				}
+				
+				"needrop"
+				{
+					"hotkey"	"3"
+					"label"	"#SFUI_Radio_Need_Drop"
+					"cmd"	"needrop"
+				}
+				
+				"enemydown"
+				{
+					"hotkey"	"4"
+					"label"	"#SFUI_Radio_Enemy_Down"
+					"cmd"	"enemydown"
+				}
+				
+//				"stormfront"
+//				{
+//					"hotkey"	"7"
+//					"label"	"#SFUI_Radio_Storm_Front"
+//					"cmd"	"stormfront"
+//				}
+
+			}
+		}
+
+		"standard"
+		{
+			"hotkey"	"1"
+			"title"	"#SFUI_CommandRadio"
+			"timeout"	"3"
+			
+			"Commands"
+			{
+				"go_a"
+				{
+					"hotkey"	"1"
+					"label"	"#SFUI_Radio_Go_A"
+					"cmd"	"go_a"
+				}
+				
+				"go_b"
+				{
+					"hotkey"	"2"
+					"label"	"#SFUI_Radio_Go_B"
+					"cmd"	"go_b"
+				}
+				
+				"report"
+				{
+					"hotkey"	"3"
+					"label"	"#SFUI_Radio_Report_In"
+					"cmd"	"report"
+				}
+				
+				"regroup"
+				{
+					"hotkey"	"4"
+					"label"	"#SFUI_Radio_Regroup"
+					"cmd"	"regroup"
+				}
+				
+//				"reportingin"
+//				{
+//					"hotkey"	"5"
+//					"label"	"#SFUI_Radio_Reporting_Int"
+//					"cmd"	"reportingin"
+//				}
+			}
+		}
+		
+		"group"
+		{
+			"hotkey"	"2"
+			"title"	"#SFUI_StandardRadio"
+			"timeout"	"3"
+			
+			"Commands"
+			{
+				"go"
+				{
+					"hotkey"	"1"
+					"label"	"#SFUI_Radio_GO"
+					"cmd"	"go"
+				}
+				
+				"fallback"
+				{
+					"hotkey"	"2"
+					"label"	"#SFUI_Radio_Fall_Back"
+					"cmd"	"fallback"
+				}
+				
+				"rogar"
+				{
+					"hotkey"	"3"
+					"label"	"#SFUI_Radio_Roger"
+					"cmd"	"rogar"
+				}
+				
+				"holdpos"
+				{
+					"hotkey"	"4"
+					"label"	"#SFUI_Radio_Hold_Pos"
+					"cmd"	"holdpos"
+				}
+				
+				"thanks"
+				{
+					"hotkey"	"5"
+					"label"	"#SFUI_Radio_Thanks"
+					"cmd"	"thanks"
+				}
+			}
+		}
+		
+		"report"
+		{
+			"hotkey"	"3"
+			"title"	"#SFUI_ReportRadio"
+			"timeout"	"3"
+			
+			"Commands"
+			{
+				"getout"
+				{
+					"hotkey"	"1"
+					"label"	"#SFUI_Radio_Shes_Gonna_Blow"
+					"cmd"	"getout"
+				}
+			}
+		}
+	}
+}
