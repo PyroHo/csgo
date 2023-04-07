@@ -14,7 +14,7 @@ Backup the csgo cfg files of mine.
 
 ### 使用方法
 
-进入目录 ``Steam\steamapps\common\Counter-Strike Global Offensive\` 克隆本项目即可
+进入目录 `Steam\steamapps\common\Counter-Strike Global Offensive\` 克隆本项目即可
 
 ```powershell
 
